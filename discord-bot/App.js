@@ -22,7 +22,7 @@ client.on('message', message =>{
 
         if (command_name === 'help') {
             message.reply(`Command list:\n\
-ban <player_name> <ban_reason>\
+ban <player_name> <ban_reason>\n\
 deban <player_name>\
             `);
         }
