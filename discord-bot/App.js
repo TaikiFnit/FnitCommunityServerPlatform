@@ -21,14 +21,13 @@ client.on('message', message =>{
         `);
     }
 
-    if (message.content.match(/ban/)) {
-        const command_name, target, reason = message.content.split(' ');
-        let auther = message.auther.username;
+    if (message.content.match(/\/fcsc/)) {
+        let [_, command_name, target, reason] = message.content.split(' ');
 
         if (command_name === 'ban') {
             if (target != null && reason != null) {
                 ban_player(target, reason);
-                message.reply(`${target}は${auther}によって「${reason}」によりwhitelistから削除されました`);
+                message.reply(`${target}は「${reason}」によりwhitelistから削除されました`);
             }
         }
     }
@@ -56,7 +55,7 @@ function ban_player(name, ban_reason) {
               return;
           } 
 
-          playerRef.set({banned: true, ban_reason}, {merge: true})
+          playerRef.set({banned: true, ban_reason, banned_date: Date.now()}, {merge: true})
         });
     });
 }
