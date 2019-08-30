@@ -72,6 +72,7 @@ function ban_player(name, ban_reason) {
           } 
 
           playerRef.set({banned: true, ban_reason, banned_date: Date.now()}, {merge: true})
+          resolve();
         });
     });
 }
@@ -86,6 +87,7 @@ function deban_player(name) {
             } 
 
             playerRef.set({banned: false, deban_date: Date.now()}, {merge: true})
+            resolve();
         });
     });
 }
