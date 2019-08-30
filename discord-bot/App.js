@@ -16,8 +16,9 @@ client.on('message', message =>{
     }
 
     if (message.content.match(/help/)) {
-        message.reply(`Command list:\
-        ban <player_name> <ban_reason>\
+        message.reply(`Command list:\n\
+ban <player_name> <ban_reason>\
+deban <player_name>\
         `);
     }
 
@@ -26,8 +27,21 @@ client.on('message', message =>{
 
         if (command_name === 'ban') {
             if (target != null && reason != null) {
-                ban_player(target, reason);
-                message.reply(`${target}は「${reason}」によりwhitelistから削除されました`);
+                ban_player(target, reason).then(() => {
+                    message.reply(`${target}は「${reason}」によりwhitelistから削除されました`);
+                }).catch(err => {
+                    message.reply('Err: Playerが見つかりませんでした');
+                });
+            }
+        }
+
+        if (command_name === 'deban') {
+            if (target != null) {
+                deban_player(target).then(() => {
+                    message.reply(`${target}はwhitelistに再度追加されました`);
+                }).catch(err => {
+                    message.reply('Err: Playerが見つかりませんでした');
+                });
             }
         }
     }
@@ -56,6 +70,20 @@ function ban_player(name, ban_reason) {
           } 
 
           playerRef.set({banned: true, ban_reason, banned_date: Date.now()}, {merge: true})
+        });
+    });
+}
+
+function deban_player(name) {
+    return new Promise((resolve, reject) => {
+        let playerRef = db.collection('players').doc(name);
+        playerRef.get().then(doc => {
+            if (!doc.exists) { 
+                reject();
+                return;
+            } 
+
+            playerRef.set({banned: false, deban_date: Date.now()}, {merge: ture})
         });
     });
 }
