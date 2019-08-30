@@ -36,6 +36,8 @@
       <h1>Firebase Hosting Setup Complete</h1>
       <p>You're seeing this because you've successfully setup Firebase Hosting. Now it's time to go build something extraordinary!</p>
       <a target="_blank" href="https://firebase.google.com/docs/hosting/">Open Hosting Documentation</a>
+      <button onclick="step1">step 1</button>
+      <button onclick="step2">step 2</button>
     </div>
     <p id="load">Firebase SDK Loading&hellip;</p>
 
@@ -55,11 +57,30 @@
           let app = firebase.app();
           let features = ['auth', 'database', 'messaging', 'storage'].filter(feature => typeof app[feature] === 'function');
           document.getElementById('load').innerHTML = `Firebase SDK loaded with ${features.join(', ')}`;
+
         } catch (e) {
           console.error(e);
           document.getElementById('load').innerHTML = 'Error loading the Firebase SDK, check the console.';
         }
       });
+
+      function step1() {
+        var provider = new firebase.auth.OAuthProvider('microsoft.com');
+        firebase.auth().signInWithRedirect(provider);
+      }
+
+      function step2() {
+        firebase.auth().getRedirectResult()
+          .then(function(result) {
+            // User is signed in.
+            // IdP data available in result.additionalUserInfo.profile.
+            // OAuth access token can also be retrieved:
+            // result.credential.accessToken
+          })
+          .catch(function(error) {
+            // Handle error.
+          });
+        }
     </script>
   </body>
 </html>
