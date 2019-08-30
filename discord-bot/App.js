@@ -85,7 +85,7 @@ function deban_player(name) {
                 return;
             } 
 
-            playerRef.set({banned: false, deban_date: Date.now()}, {merge: ture})
+            playerRef.set({banned: false, deban_date: Date.now()}, {merge: true})
         });
     });
 }
