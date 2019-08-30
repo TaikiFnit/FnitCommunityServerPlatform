@@ -17,7 +17,6 @@ app.post('/join_request', (req, res) => {
 app.post('/stop', (req, res) => {
   console.log('stop');
   res.send('ok');
-  app.close();
 });
 
 app.listen(port);
