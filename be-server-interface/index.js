@@ -83,25 +83,23 @@ function record_join_request(name) {
   });
 }
 
-db.collection('players').where('banned', '==', true).onSnapshot(querySnapshot => {
+db.collection('players').onSnapshot(querySnapshot => {
   querySnapshot.docChanges().forEach(change => {
-    const player = change.doc.data();
-    const name = player.name;
+    db.collection('players').doc(change.doc.id).get().then(doc => {
+      if (!doc.exists) {
+        return;
+      }
 
-    if (player.banned === true) {
-      console.log(`whitelist remove ${name}`)
-      console.log(`kick ${name} ${player.ban_reason}`);
-    }
-  });
-});
+      const player = doc.data();
 
-db.collection('players').where('banned', '==', false).onSnapshot(querySnapshot => {
-  querySnapshot.docChanges().forEach(change => {
-    const player = change.doc.data();
-    const name = player.name;
+      if (player.banned === true) {
+        console.log(`whitelist remove ${player.name}`)
+        console.log(`kick ${player.name} ${player.ban_reason}`);
+      }
 
-    if (player.banned === false) {
-      console.log(`whitelist add ${name}`)
-    }
+      if (player.banned === false) {
+        console.log(`whitelist add ${name}`);
+      }
+    })
   });
 });
