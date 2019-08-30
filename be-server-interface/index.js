@@ -9,6 +9,7 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.post('/is_newer', async (req, res) => {
+  const name = req.query.name;
   const is_newer = await check_newer(name);
 
   if (is_newer) {
