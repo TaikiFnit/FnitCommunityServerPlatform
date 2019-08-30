@@ -11,7 +11,7 @@ app.use(bodyParser.urlencoded({
 app.post('/join_request', async (req, res) => {
   const name = req.query.name;
 
-  record_join_request().then(result => {
+  record_join_request(name).then(result => {
     console.log(`whitelist add ${name}`);
     res.send('ok');
   }).catch(err => {
