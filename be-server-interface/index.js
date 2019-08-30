@@ -98,7 +98,7 @@ db.collection('players').onSnapshot(querySnapshot => {
       }
 
       if (player.banned === false) {
-        console.log(`whitelist add ${name}`);
+        console.log(`whitelist add ${player.name}`);
       }
     })
   });
