@@ -82,3 +82,17 @@ function record_join_request(name) {
     })
   });
 }
+
+let playersRef = db.collection('players').where('banned', '==', true).onSnapshot(querySnapshot => {
+  querySnapshot.docChanges().forEach(change => {
+    if (change.type === 'modified') {
+      const player = change.doc.data();
+      const name = player.name;
+
+      if (player.banned === true) {
+        console.log(`whitelist remove ${name}`)
+        console.log(`kick ${name} ${player.ban_reason}`);
+      }
+    }
+  });
+})
