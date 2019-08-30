@@ -15,15 +15,17 @@ client.on('message', message =>{
         return;
     }
 
-    if (message.content.match(/help/)) {
-        message.reply(`Command list:\n\
-ban <player_name> <ban_reason>\
-deban <player_name>\
-        `);
-    }
+
 
     if (message.content.match(/\/fcsc/)) {
         let [_, command_name, target, reason] = message.content.split(' ');
+
+        if (command_name === 'help') {
+            message.reply(`Command list:\n\
+ban <player_name> <ban_reason>\
+deban <player_name>\
+            `);
+        }
 
         if (command_name === 'ban') {
             if (target != null && reason != null) {
