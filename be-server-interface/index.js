@@ -8,6 +8,16 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
+app.post('/is_newer', async (req, res) => {
+  const is_newer = await check_newer(name);
+
+  if (is_newer) {
+    res.send(true);
+  } else {
+    res.send(false);
+  }
+});
+
 app.post('/join_request', async (req, res) => {
   const name = req.query.name;
 
@@ -38,6 +48,19 @@ admin.initializeApp({
 
 let db = admin.firestore();
 
+function check_newer(name) {
+  return new Promise((resolve, reject) => {
+    let playerRef = db.collection('players').doc(name);
+    playerRef.get().then(doc => {
+      if (!doc.exists) { 
+        resolve(true);
+      } else {
+        resolve(false);
+      }
+    });
+  });
+}
+
 function record_join_request(name) {
   return new Promise((resolve, reject) => {
     let playerRef = db.collection('players').doc(name);
@@ -45,11 +68,16 @@ function record_join_request(name) {
       if (!doc.exists) {
         // 新規プレイやー
         playerRef.set({name, created_at: Date.now()});
-        resolve();
       } else {
         // 既存プレイやー
-        reject();
+        const player = doc.data();
+        if (player.banned === true) {
+          reject();
+          return;
+        } 
       }
+
+      resolve();
     })
   });
 }
