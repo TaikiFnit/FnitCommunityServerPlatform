@@ -23,7 +23,7 @@ app.post('/join_request', async (req, res) => {
   const name = req.query.name;
 
   record_join_request(name).then(result => {
-    console.log(`whitelist add ${name}`);
+    console.log(`whitelist add "${name}"`);
     res.send('ok');
   }).catch(err => {
     res.send('ng');
@@ -93,12 +93,12 @@ db.collection('players').onSnapshot(querySnapshot => {
       const player = doc.data();
 
       if (player.banned === true) {
-        console.log(`whitelist remove ${player.name}`)
+        console.log(`whitelist remove "${player.name}"`)
         console.log(`kick ${player.name} ${player.ban_reason}`);
       }
 
       if (player.banned === false) {
-        console.log(`whitelist add ${player.name}`);
+        console.log(`whitelist add "${player.name}"`);
       }
     })
   });
