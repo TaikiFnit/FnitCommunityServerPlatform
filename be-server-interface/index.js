@@ -9,7 +9,7 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.post('/is_newer', async (req, res) => {
-  const name = req.query.name;
+  const name = decodeURIComponent(req.query.name);
   const is_newer = await check_newer(name);
 
   if (is_newer) {
@@ -20,7 +20,7 @@ app.post('/is_newer', async (req, res) => {
 });
 
 app.post('/join_request', async (req, res) => {
-  const name = req.query.name;
+  const name = decodeURIComponent(req.query.name);
 
   record_join_request(name).then(result => {
     console.log(`whitelist add "${name}"`);
