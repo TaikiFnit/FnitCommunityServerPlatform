@@ -8,7 +8,7 @@ let reader = require('readline').createInterface({
 reader.on('line', function(line) {
   console.log(`[Node]${line}`);
 
-  if(line.match(/connected/) {
+  if(line.match(/connected/)) {
     // do backup
     do_backup();
   }
