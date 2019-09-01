@@ -5,17 +5,13 @@ const client = new Discord.Client();
 require('dotenv').config();
 const token = process.env.discord_token;
 
-client.on('ready', () => {
-    console.log('ready...');
-});
-
 client.on('message', message =>{
     //Bot自身の発言を無視する呪い
     if(message.author.bot){
         return;
     }
 
-
+    
 
     if (message.content.match(/\/fcsc/)) {
         let [_, command_name, target, reason] = message.content.split(' ');
