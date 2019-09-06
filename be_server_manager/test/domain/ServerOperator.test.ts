@@ -6,4 +6,3 @@ test('ServerOperator return value check', () => {
     expect(serverOperator.addWhitelist('test')).toBe(true);
     expect(serverOperator.removeWhitelist('test')).toBe(true);
 });
-
