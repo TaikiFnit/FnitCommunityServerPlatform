@@ -1,4 +1,4 @@
-export interface ServerOperatorInterface {
-    addWhitelist(playerName: string): boolean;
-    removeWhitelist(playerName: string): boolean;
+export default interface ServerOperatorInterface {
+    addWhitelist(playerName: string): Promise<boolean>;
+    removeWhitelist(playerName: string): Promise<boolean>;
 }

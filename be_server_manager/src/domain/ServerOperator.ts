@@ -1,13 +1,22 @@
-import { ServerOperatorInterface } from "./ServerOperatorInterface";
+import ServerOperatorInterface from "./ServerOperatorInterface";
+import ServerOperatorGateway from './ServerOperatorGateway';
 
 export default class ServerOperator implements ServerOperatorInterface {
-    addWhitelist(playerName: string) {
-        console.log(`${playerName} has been added to whitelist`);
+    private serverOperatorGateway: ServerOperatorGateway;
+
+    constructor(serverOperatorGateway: ServerOperatorGateway) {
+        this.serverOperatorGateway = serverOperatorGateway;
+    }
+
+    async addWhitelist(playerName: string) {
+        const player = await this.serverOperatorGateway.fetchUserBy(playerName);
+        console.log(`${player.name} (${player.xuid}) has been added to whitelist`);
         return true;
     }
 
-    removeWhitelist(playerName: string) {
-        console.log(`${playerName} has been removed from whitelist`);
+    async removeWhitelist(playerName: string) {
+        const player = await this.serverOperatorGateway.fetchUserBy(playerName);
+        console.log(`${player.name} (${player.xuid}) has been remove from whitelist`);
         return true;
     }
 }

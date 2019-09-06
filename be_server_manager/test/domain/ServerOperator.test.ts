@@ -1,8 +1,11 @@
-import ServerOperator from '../../src/domain/ServerOperator';
+import ServerOperator from "../../src/domain/ServerOperator";
+import ServerOperatorMapper from "../../src/database/ServerOperatorMapper";
 
-test('ServerOperator return value check', () => {
-    const serverOperator = new ServerOperator();
+test("ServerOperator return value check", async () => {
+    const serverOperator = new ServerOperator(new ServerOperatorMapper());
+    const result1 = await serverOperator.addWhitelist('test');
+    const result2 = await serverOperator.removeWhitelist('test');
 
-    expect(serverOperator.addWhitelist('test')).toBe(true);
-    expect(serverOperator.removeWhitelist('test')).toBe(true);
+    expect(result1).toBe(true);
+    expect(result2).toBe(true);
 });
