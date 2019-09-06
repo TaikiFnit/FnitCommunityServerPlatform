@@ -1,11 +1,13 @@
-import IServerOperator from "./IServerOperator";
+import { ServerOperatorInterface } from "./ServerOperatorInterface";
 
-export default class ServerOperator implements IServerOperator {
-    addWhitelist(player_name: string) {
-        console.log(`${player_name} has been added to whitelist`);
+export default class ServerOperator implements ServerOperatorInterface {
+    addWhitelist(playerName: string) {
+        console.log(`${playerName} has been added to whitelist`);
+        return true;
     }
 
-    removeWhitelist(player_name: string) {
-        console.log(`${player_name} has been removed from whitelist`);
+    removeWhitelist(playerName: string) {
+        console.log(`${playerName} has been removed from whitelist`);
+        return true;
     }
 }
