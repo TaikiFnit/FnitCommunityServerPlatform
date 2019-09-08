@@ -1,19 +1,24 @@
 import ServerOperatorGateway from '../domain/ServerOperatorGateway';
+import ServerOperatorDatabase from './ServerOperatorDatabase';
 import Player from "../model/Player";
 
 export default class ServerOperatorMapper implements ServerOperatorGateway {
-    fetchUserBy(name: string): Promise<Player> {
-        return new Promise<Player>((resolve, reject) => {
-            const player = {
-                uid: '1',
-                name: 'fnit',
-                xuid: '11',
-                ip: '192.',
-                discord_account: 'dis#a',
-                created_at: 153
-            };
+    async fetchPlayerBy(name: string): Promise<Player> {
+        let docRef = ServerOperatorDatabase.collection('players').doc(name);
 
-            resolve(player)
-        });
+        const doc = await docRef.get();
+        if (doc.exists) {
+            const player = doc.data();
+
+            if (this.isPlayer(player)) {
+                return player;
+            }
+        }
+
+        throw new Error('User Not Found');
+    }
+
+    private isPlayer(object: any): object is Player {
+        return (object as Player).name !== undefined;
     }
 }

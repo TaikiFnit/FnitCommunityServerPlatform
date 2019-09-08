@@ -4,9 +4,9 @@ import Player from "../../src/model/Player";
 test("ServerOperator return value check", async () => {
     const serverOperatorMapper = new ServerOperatorMapper();
 
-    const player: Player = await serverOperatorMapper.fetchUserBy('test');
+    const result  = isPlayer(await serverOperatorMapper.fetchPlayerBy('fnit'));
 
-    expect(isPlayer(player)).toBe(true);
+    expect(result).toBe(true);
 });
 
 function isPlayer(object: any): object is Player {

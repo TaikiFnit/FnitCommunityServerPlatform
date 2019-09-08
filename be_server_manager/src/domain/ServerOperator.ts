@@ -9,14 +9,14 @@ export default class ServerOperator implements ServerOperatorInterface {
     }
 
     async addWhitelist(playerName: string) {
-        const player = await this.serverOperatorGateway.fetchUserBy(playerName);
-        console.log(`${player.name} (${player.xuid}) has been added to whitelist`);
+        const player  = await this.serverOperatorGateway.fetchPlayerBy(playerName);
+        console.log(`${player.name} has been added to whitelist`);
         return true;
     }
 
     async removeWhitelist(playerName: string) {
-        const player = await this.serverOperatorGateway.fetchUserBy(playerName);
-        console.log(`${player.name} (${player.xuid}) has been remove from whitelist`);
+        const player = await this.serverOperatorGateway.fetchPlayerBy(playerName);
+        // console.log(`${player.name} (${player.xuid}) has been remove from whitelist`);
         return true;
     }
 }
