@@ -1,5 +1,5 @@
 import ServerOperatorInterface from "./ServerOperatorInterface";
-import ServerOperatorGateway from './ServerOperatorGateway';
+import ServerOperatorGateway from "./ServerOperatorGateway";
 
 export default class ServerOperator implements ServerOperatorInterface {
     private serverOperatorGateway: ServerOperatorGateway;

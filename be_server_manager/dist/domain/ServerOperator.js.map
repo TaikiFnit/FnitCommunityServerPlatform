@@ -1,1 +1,0 @@
-{"version":3,"file":"ServerOperator.js","sourceRoot":"","sources":["../../src/domain/ServerOperator.ts"],"names":[],"mappings":";;AAEA,MAAqB,cAAc;IAC/B,YAAY,CAAC,UAAkB;QAC3B,OAAO,CAAC,GAAG,CAAC,GAAG,UAAU,8BAA8B,CAAC,CAAC;QACzD,OAAO,IAAI,CAAC;IAChB,CAAC;IAED,eAAe,CAAC,UAAkB;QAC9B,OAAO,CAAC,GAAG,CAAC,GAAG,UAAU,kCAAkC,CAAC,CAAC;QAC7D,OAAO,IAAI,CAAC;IAChB,CAAC;CACJ;AAVD,iCAUC"}

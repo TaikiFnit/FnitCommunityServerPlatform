@@ -1,6 +1,6 @@
 import express from "express";
 import bodyParser from "body-parser";
-import * as logController from "../src/controllers/log";
+import * as logController from "./controllers/log";
 
 const app = express();
 

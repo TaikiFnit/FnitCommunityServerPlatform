@@ -1,5 +1,3 @@
-const fnit = (mes: string) => {
-    console.log(mes);
-};
+import ExpressApp from "./server";
 
-fnit("fnit");
+ExpressApp.listen(9999);
