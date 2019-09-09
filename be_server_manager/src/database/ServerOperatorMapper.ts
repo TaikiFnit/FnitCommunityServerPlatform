@@ -1,10 +1,10 @@
 import ServerOperatorGateway from "../domain/ServerOperatorGateway";
-import ServerOperatorDatabase from "./ServerOperatorDatabase";
+import FnitCommunityDatabase from "./FnitCommunityDatabase";
 import Player from "../model/Player";
 
 export default class ServerOperatorMapper implements ServerOperatorGateway {
     async fetchPlayerBy(name: string): Promise<Player> {
-        const docRef = ServerOperatorDatabase.collection("players").doc(name);
+        const docRef = FnitCommunityDatabase.collection("players").doc(name);
 
         const doc = await docRef.get();
         if (doc.exists) {
