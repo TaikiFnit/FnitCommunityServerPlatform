@@ -15,40 +15,34 @@
     import { Component, Prop, Vue } from 'vue-property-decorator';
     import * as firebase from 'firebase';
     import * as firebaseui from 'firebaseui';
-    require("firebaseui/dist/firebaseui.css");
-
-    const firebaseConfig = {
-        apiKey: "AIzaSyA9g8ocYIQD_Uh997ww1gl1UxQRfxuGgps",
-        authDomain: "fnit-commu.firebaseapp.com",
-        databaseURL: "https://fnit-commu.firebaseio.com",
-        projectId: "fnit-commu",
-        storageBucket: "fnit-commu.appspot.com",
-        messagingSenderId: "950510864668",
-        appId: "1:950510864668:web:bd6cef3543130db2"
-    };
-
-    const uiConfig = {
-        // ログイン完了時のリダイレクト先
-        signInSuccessUrl: '/connect_discord',
-
-        // 利用する認証機能
-        signInOptions: [{
-            provider: firebase.auth.PhoneAuthProvider.PROVIDER_ID,
-            defaultCountry: 'JP',
-            //whitelistedCountries: ['JP', '+81']
-        }],
-
-        // 利用規約のURL(任意で設定)
-        tosUrl: 'https://fnit.dev',
-        // プライバシーポリシーのURL(任意で設定)
-        privacyPolicyUrl: 'https://fnit.dev'
-    };
+    // tslint:disable-next-line
+    require('firebaseui/dist/firebaseui.css');
 
     @Component
     export default class Authentification extends Vue {
-        mounted() {
-            firebase.initializeApp(firebaseConfig);
-            firebase.auth().useDeviceLanguage();
+        @Prop() private onSignInSuccess!: (authResult: any, redirectUrl: any) => boolean;
+        private ui: any;
+
+        private mounted() {
+            const uiConfig = {
+                // ログイン完了時のリダイレクト先
+                signInSuccessUrl: '/connect_discord',
+
+                // 利用する認証機能
+                signInOptions: [{
+                    provider: firebase.auth.PhoneAuthProvider.PROVIDER_ID,
+                    defaultCountry: 'JP',
+                }],
+
+                // 利用規約のURL(任意で設定)
+                tosUrl: 'https://fnit.dev',
+                // プライバシーポリシーのURL(任意で設定)
+                privacyPolicyUrl: 'https://fnit.dev',
+                callbacks: {
+                    signInSuccessWithAuthResult: this.onSignInSuccess,
+                },
+            };
+
             const ui = new firebaseui.auth.AuthUI(firebase.auth());
             ui.start('#firebaseui-auth-container', uiConfig);
         }

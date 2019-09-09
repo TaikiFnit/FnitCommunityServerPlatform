@@ -30,6 +30,6 @@ export default new Router({
     {
       path: '/connect_discord',
       name: 'connect_discord',
-    }
+    },
   ],
 });
