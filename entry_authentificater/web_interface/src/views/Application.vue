@@ -1,35 +1,32 @@
 <template>
     <div class="home">
-        <Terms v-if="this.currentUserView === 'Terms'" :onAgreeTerms="this.onAgreeTerms" />
         <NameInput v-if="this.currentUserView === 'NameInput'" :on-complete-name="this.onCompleteName"/>
-        <Authentification v-if="this.currentUserView === 'Authentification'"  :on-sign-in-success="this.onSignInSuccess"/>
-<!--        <DiscordConnecter v-if="this.currentUserView === Application.UserView.DiscordConnecter" />-->
+        <Authentification v-if="this.currentUserView === 'Authentification'" :on-sign-in-success="this.onSignInSuccess"/>
+        <DiscordConnecter v-if="this.currentUserView === 'DiscordConnecter'" :on-mount-discord-connecter="this.onApplicationAlmostCompleted"/>
     </div>
 </template>
 
 <script lang="ts">
     import { Component, Vue } from 'vue-property-decorator';
-    import Terms from '@/components/Terms.vue'; // @ is an alias to /src
-    import Authentification from '@/components/Authentification.vue';
+
     import NameInput from '@/components/NameInput.vue';
+    import Authentification from '@/components/Authentification.vue';
+    import DiscordConnecter from "@/components/DiscordConnecter.vue";
+
+    import * as firebase from 'firebase';
 
     @Component({
         components: {
-            Terms,
-            Authentification,
             NameInput,
+            Authentification,
+            DiscordConnecter,
         },
     })
     class Application extends Vue {
-        private currentUserView: 'Terms' | 'Authentification' | 'NameInput' | 'DiscordConnecter' = 'Terms';
+        private currentUserView: 'NameInput' | 'Authentification' | 'DiscordConnecter' = 'NameInput';
 
         private name?: string;
         private uid?: string;
-        private discordName?: string;
-
-        protected onAgreeTerms() {
-            this.currentUserView = 'NameInput';
-        }
 
         protected onCompleteName(name: string) {
             this.name = name;
@@ -45,12 +42,24 @@
             }
 
             this.uid = authResult.user.uid;
+            this.currentUserView = 'DiscordConnecter';
 
-            if (typeof this.name === 'string') {
-                authResult.user.updateProfile({
-                    displayName: this.name,
-                });
-            }
+            return false;
+        }
+
+        protected async onApplicationAlmostCompleted() {
+            const db = firebase.firestore();
+
+            db.collection('players').doc(this.uid).set({
+                name: this.name,
+                uid: this.uid
+            });
+
+            const receipt_number = await fetch('https://us-central1-fnit-commu.cloudfunctions.net/publishReceiptNumber');
+
+            db.collection('receipt').doc(this.uid).set({
+                // number:
+            });
 
             this.currentUserView = 'DiscordConnecter';
 

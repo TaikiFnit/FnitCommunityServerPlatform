@@ -1,7 +1,9 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Home from './views/Home.vue';
+import TermsView from './views/Terms.vue';
 import Application from './views/Application.vue';
+import AgreeTerms from "@/views/AgreeTerms.vue";
 
 Vue.use(Router);
 
@@ -21,6 +23,16 @@ export default new Router({
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () => import(/* webpackChunkName: "about" */ './views/About.vue'),
+    },
+    {
+      path: '/terms',
+      name: 'terms',
+      component: TermsView
+    },
+    {
+      path: '/agreement',
+      name: 'agreement',
+      component: AgreeTerms
     },
     {
       path: '/application',

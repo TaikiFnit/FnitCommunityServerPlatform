@@ -1,14 +1,15 @@
 <template>
   <div class="hello">
-    <h1>ようこそ ふにっとコミュニティサーバーへ</h1>
+    <h1>ふにっとシェアハウスへ ようこそ</h1>
     <p>
-      ふにっとコミュニティサーバーは, バニラなマインクラフトを多人数で楽しむためのサーバーです.
+      ふにっとシェアハウスは, Minecraft Bedrock Edition(PE, Win10)のマルチプレイサーバーです. <br>
+      このサーバーは, バニラなマインクラフトを多人数で楽しむためにホストされています.
     </p>
-    <h3>入居希望の方</h3>
+    <h3>新規入居希望の方</h3>
     <p>
       こちらから入居申請を行ってください
     </p>
-    <router-link to="/application">
+    <router-link to="/agreement">
       <button type="button">入居申請</button>
     </router-link>
   </div>
