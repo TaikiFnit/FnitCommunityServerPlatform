@@ -1,5 +1,7 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin'
+import * as corsLib from 'cors';
+const cors = corsLib();
 
 admin.initializeApp(functions.config().firebase);
 
@@ -9,7 +11,9 @@ let db = admin.firestore();
 // // https://firebase.google.com/docs/functions/typescript
 //
 export const publishReceiptNumber = functions.https.onRequest(async (request, response) => {
-    response.send(await generateUniqueReceiptNumber());
+    return cors(request, response, async () => {
+        response.send(await generateUniqueReceiptNumber());
+    });
 });
 
 async function generateUniqueReceiptNumber(): Promise<string> {

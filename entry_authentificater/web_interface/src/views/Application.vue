@@ -52,18 +52,16 @@
 
             db.collection('players').doc(this.uid).set({
                 name: this.name,
-                uid: this.uid
+                uid: this.uid,
             });
 
-            const receipt_number = await fetch('https://us-central1-fnit-commu.cloudfunctions.net/publishReceiptNumber');
+            const receipt_number = await fetch('https://us-central1-fnit-commu.cloudfunctions.net/publishReceiptNumber')
+                .then(response => response.text());
 
             db.collection('receipt').doc(this.uid).set({
-                // number:
+                number: receipt_number,
+                uid: this.uid,
             });
-
-            this.currentUserView = 'DiscordConnecter';
-
-            return false;
         }
     }
 
