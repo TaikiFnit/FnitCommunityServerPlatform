@@ -65,7 +65,7 @@
 
             // すでにSMS認証済み: 受付番号を忘れた or 名前をミスってやり直してる or 他のアカウントとと同じ電話番号使ってる
             const playerDoc = await db.collection('receipts').doc(this.uid).get();
-            if (!playerDoc.exists) {
+            if (playerDoc.exists) {
                 const data = playerDoc.data();
                 if (data !== undefined) {
                     // すでに受付番号が使用済み => すでに登録済みの画面へ飛ばす

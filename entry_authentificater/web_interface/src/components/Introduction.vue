@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-    <h1>ふにっとシェアハウスへ ようこそ</h1>
+    <h1>ふにっとシェアハウスへようこそ</h1>
     <p>
       ふにっとシェアハウスは, Minecraft Bedrock Edition(PE, Win10)のマルチプレイサーバーです. <br>
       このサーバーは, バニラなマインクラフトを多人数で楽しむためにホストされています.
@@ -9,7 +9,6 @@
     <p>
       こちらから入居申請を行ってください
     </p>
-    <iframe src="https://discordapp.com/widget?id=610882302209294338&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0"></iframe>
     <router-link to="/agreement">
       <button type="button">入居申請</button>
     </router-link>

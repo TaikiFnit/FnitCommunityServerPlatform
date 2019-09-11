@@ -7,7 +7,7 @@
                 <dt>1.1. 運営者</dt>
                 <dd>Minecraft BE Serverをホスティング・管理を行っている者</dd>
                 <dt>1.2 ふにっとシェアハウス</dt>
-                <dt>運営者がホスティング・管理しているMinecraft BE Serverの名称</dt>
+                <dd>運営者がホスティング・管理しているMinecraft BE Serverの名称</dd>
                 <dt>1.3 入居者</dt>
                 <dd>ふにっとシェアハウスへ接続してそのリソースを利用するもの</dd>
                 <dt>1.4 入居申請</dt>
@@ -33,9 +33,9 @@
             </p>
 
             <ol>
-                <li>2.a.1 サーバーのホワイトリストの登録に利用</li>
-                <li>2.a.2 同一人物による複数アカウントでの参加防止の為利用</li>
-                <li>2.a.3 入居者間のコミュニケーション, ディスカッションのため</li>
+                <li>2.1.a サーバーのホワイトリストの登録に利用</li>
+                <li>2.2.a 同一人物による複数アカウントでの参加防止の為利用</li>
+                <li>2.3.a 入居者間のコミュニケーション, ディスカッションのため</li>
             </ol>
         </section>
     </div>
@@ -60,8 +60,15 @@
     li {
         display: inline-block;
         margin: 0 10px;
+        font-weight: 600;
     }
     a {
         color: #42b983;
+    }
+    dt {
+        font-weight: 600;
+    }
+    dd {
+        margin-bottom: 10px;
     }
 </style>
