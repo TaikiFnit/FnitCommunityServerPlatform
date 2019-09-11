@@ -22,7 +22,7 @@
     export default class Authentification extends Vue {
         @Prop() private onSignInSuccess!: (authResult: any, redirectUrl: any) => boolean;
 
-        private deleteFirebaseUI?: ()=>void;
+        private deleteFirebaseUI?: () => void;
 
         private mounted() {
             const uiConfig = {
@@ -46,15 +46,14 @@
 
             const ui = new firebaseui.auth.AuthUI(firebase.auth());
             ui.start('#firebaseui-auth-container', uiConfig);
-            this.deleteFirebaseUI = function() {
+            this.deleteFirebaseUI = () => {
                 ui.delete();
-            }
+            };
         }
 
         private beforeDestroy() {
             if (this.deleteFirebaseUI) {
                 this.deleteFirebaseUI();
-                console.log("deleted ui");
             }
         }
     }
