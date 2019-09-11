@@ -2,8 +2,8 @@
   <div class="hello">
     <h1>ふにっとシェアハウスへようこそ</h1>
     <p>
-      ふにっとシェアハウスは, Minecraft Bedrock Edition(PE, Win10)のマルチプレイサーバーです. <br>
-      このサーバーは, バニラなマインクラフトを多人数で楽しむためにホストされています.
+      ふにっとシェアハウスは, <strong>Minecraft Bedrock Edition(PE, Win10)のマルチプレイサーバー</strong>です. <br>
+      このサーバーは, バニラな<strong>マインクラフトを多人数で楽しむため</strong>にホストされています.
     </p>
     <h3>新規入居希望の方</h3>
     <p>
