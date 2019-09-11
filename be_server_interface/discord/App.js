@@ -1,17 +1,43 @@
 //ログイン処理
+const axios = require('axios');
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
 require('dotenv').config();
 const token = process.env.discord_token;
 
-client.on('message', message =>{
-    //Bot自身の発言を無視する呪い
+client.on('message', async message => {
     if(message.author.bot){
         return;
     }
 
-    
+    const author = {
+        id: message.author.id,
+        username: message.author.username,
+        discriminator: message.author.discriminator,
+        avatar: message.author.avatar
+    };
+
+    if (message.content.match(/\/fnit/)) {
+        const [_, ...directives] = message.content.split(' ');
+        const directivesString = encodeURIComponent(directives.join(' '));
+
+        const response = await axios.post('http://localhost:9999/discord_command', {
+            directive: directivesString,
+            author
+        });
+
+        console.log(response.data);
+        // if (response.status === 200) {
+        // }
+    }
+});
+
+client.on('message', message =>{
+    return;
+    if(message.author.bot){
+        return;
+    }
 
     if (message.content.match(/\/fcsc/)) {
         let [_, command_name, target, reason] = message.content.split(' ');
@@ -47,6 +73,7 @@ deban <player_name>\
 
 client.login(token);
 
+return;
 
 // db
 const admin = require('firebase-admin');
@@ -67,7 +94,7 @@ function ban_player(name, ban_reason) {
               return;
           } 
 
-          playerRef.set({banned: true, ban_reason, banned_date: Date.now()}, {merge: true})
+          playerRef.set({banned: true, ban_reason, banned_date: Date.now()}, {merge: true});
           resolve();
         });
     });
