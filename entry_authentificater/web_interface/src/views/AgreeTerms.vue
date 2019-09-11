@@ -10,12 +10,12 @@
 
 <script lang="ts">
     import { Component, Prop, Vue } from 'vue-property-decorator';
-    import Terms from "@/components/Terms.vue";
+    import Terms from '@/components/Terms.vue';
 
     @Component({
         components: {
-            Terms
-        }
+            Terms,
+        },
     })
     export default class Introduction extends Vue {}
 </script>

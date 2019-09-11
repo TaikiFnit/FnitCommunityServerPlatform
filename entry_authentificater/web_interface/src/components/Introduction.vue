@@ -9,6 +9,7 @@
     <p>
       こちらから入居申請を行ってください
     </p>
+    <iframe src="https://discordapp.com/widget?id=610882302209294338&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0"></iframe>
     <router-link to="/agreement">
       <button type="button">入居申請</button>
     </router-link>

@@ -2,10 +2,16 @@
     <div class="hello">
         <h2>認証が完了しました!</h2>
         <p>
-            最後のステップはDiscord(チャットルーム)に参加することです!
-            同じ部屋で遊ぶためには, 入居者間でのコミュニケーションが欠かせません.
-            細かいルールなどは入居者主体のディスカッションを通じて決め
+            最後のステップはDiscord(チャットルーム)に参加して受付番号を入力するです!
+            同じサーバーで遊ぶためには, 入居者間でのコミュニケーションが欠かせません.
+            細かいルールなどは入居者主体のディスカッションを通じて決めて, トラブルのない快適なマインクラフト生活にしましょう!
         </p>
+
+        <h3>あなたの受付番号</h3>
+        <p><strong>{{ receiptNumber }}}</strong></p>
+        <p>この番号をDiscordサーバーに参加して入力してください</p>
+
+        <a href="https://discord.gg/JAA4Qh4"><button type="button">Discordに参加</button></a>
     </div>
 </template>
 
@@ -14,10 +20,13 @@
 
     @Component
     export default class DiscordConnecter extends Vue {
-        @Prop() private onMountDiscordConnecter!: () => Promise<void>;
+        @Prop() private onMountDiscordConnecter!: () => Promise<string>;
+        private receiptNumber?: string;
 
-        mounted() {
-            this.onMountDiscordConnecter();
+        private mounted() {
+            this.onMountDiscordConnecter().then((receiptNumber) => {
+                this.receiptNumber = receiptNumber;
+            });
         }
     }
 </script>

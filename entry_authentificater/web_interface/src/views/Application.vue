@@ -11,7 +11,7 @@
 
     import NameInput from '@/components/NameInput.vue';
     import Authentification from '@/components/Authentification.vue';
-    import DiscordConnecter from "@/components/DiscordConnecter.vue";
+    import DiscordConnecter from '@/components/DiscordConnecter.vue';
 
     import * as firebase from 'firebase';
 
@@ -27,6 +27,7 @@
 
         private name?: string;
         private uid?: string;
+        private isNewer?: boolean;
 
         protected onCompleteName(name: string) {
             this.name = name;
@@ -34,34 +35,49 @@
         }
 
         protected onSignInSuccess(authResult: any, redirectUrl: any): boolean {
-            const isNewer = authResult.additionalUserInfo.isNewUser;
-
-            if (isNewer) {
-                // 登録済み
-                return false;
-            }
-
+            this.isNewer = authResult.additionalUserInfo.isNewUser;
             this.uid = authResult.user.uid;
             this.currentUserView = 'DiscordConnecter';
 
             return false;
         }
 
-        protected async onApplicationAlmostCompleted() {
+        protected async onApplicationAlmostCompleted(): Promise<string> {
             const db = firebase.firestore();
 
-            db.collection('players').doc(this.uid).set({
-                name: this.name,
-                uid: this.uid,
-            });
+            if (this.isNewer) {
+                // 新規の人
+                db.collection('players').doc(this.uid).set({
+                    name: this.name,
+                    uid: this.uid,
+                });
 
-            const receipt_number = await fetch('https://us-central1-fnit-commu.cloudfunctions.net/publishReceiptNumber')
-                .then(response => response.text());
+                const receiptNumber = await fetch('https://us-central1-fnit-commu.cloudfunctions.net/publishReceiptNumber')
+                    .then((response) => response.text());
 
-            db.collection('receipt').doc(this.uid).set({
-                number: receipt_number,
-                uid: this.uid,
-            });
+                db.collection('receipts').doc(this.uid).set({
+                    number: receiptNumber,
+                    uid: this.uid,
+                });
+
+                return receiptNumber;
+            }
+
+            // すでにSMS認証済み: 受付番号を忘れた or 名前をミスってやり直してる or 他のアカウントとと同じ電話番号使ってる
+            const playerDoc = await db.collection('receipts').doc(this.uid).get();
+            if (!playerDoc.exists) {
+                const data = playerDoc.data();
+                if (data !== undefined) {
+                    // すでに受付番号が使用済み => すでに登録済みの画面へ飛ばす
+                    // if (data.used === true) {
+                    //   throw new Error('すでに登録済みです');
+                    // }
+                    return data.number;
+                }
+            }
+
+            // 不明な
+            throw new Error('エラーが発生しました');
         }
     }
 
