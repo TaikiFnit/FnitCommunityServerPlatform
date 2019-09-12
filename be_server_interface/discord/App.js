@@ -20,7 +20,7 @@ client.on('message', async message => {
 
     if (message.content.match(/\/fnit/)) {
         const [_, ...directives] = message.content.split(' ');
-        const directivesString = encodeURIComponent(directives.join(' '));
+        const directivesString = directives.join(' ');
 
         const response = await axios.post('http://localhost:9999/discord_command', {
             directive: directivesString,
@@ -28,8 +28,9 @@ client.on('message', async message => {
         });
 
         console.log(response.data);
-        // if (response.status === 200) {
-        // }
+        if (response.status === 200) {
+            await message.reply(response.data);
+        }
     }
 });
 

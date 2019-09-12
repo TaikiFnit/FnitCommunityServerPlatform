@@ -5,5 +5,5 @@ export const discordCommand = async (request: Request, response: Response) => {
     console.log('body');
     console.log(body);
 
-    return response.sendStatus(200);
+    return response.send(body.directives);
 };
