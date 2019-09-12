@@ -1,3 +1,3 @@
-import ExpressApp from "./server";
+import ExpressApp from './server';
 
 ExpressApp.listen(9999);
