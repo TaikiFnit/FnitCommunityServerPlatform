@@ -2,15 +2,16 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 const app = express();
-const port = 9999;
+const port = 8888;
 
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
 }));
 
 app.post('/command', async (req, res) => {
-    const command_name = decodeURIComponent(req.query.command);
-    console.log(command_name);
+    const command = req.body.command;
+    console.log(command);
     res.send('ok');
 });
 

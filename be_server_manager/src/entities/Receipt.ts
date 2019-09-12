@@ -1,7 +1,7 @@
 interface Receipt {
-    name: string;
-    ip: string;
+    uid: string;
     number: string;
+    activated?: boolean;
     created_at: number;
 }
 

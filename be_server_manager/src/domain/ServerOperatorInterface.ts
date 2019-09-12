@@ -1,5 +1,8 @@
+import DiscordAuthor from "../entities/DiscordAuthor";
+
 interface ServerOperatorInterface {
-    addWhitelist(playerName: string): Promise<boolean>;
+    joinRequestAccepter(receiptNumber: string, author: DiscordAuthor): Promise<boolean>;
+    addWhitelist(playerName: string, author: DiscordAuthor): Promise<boolean>;
     removeWhitelist(playerName: string): Promise<boolean>;
 }
 
