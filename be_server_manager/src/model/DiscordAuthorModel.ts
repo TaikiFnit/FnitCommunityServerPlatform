@@ -1,5 +1,5 @@
 import DiscordAuthor from '../entities/DiscordAuthor';
-import { FieldValue} from '../database/FnitCommunityDatabase';
+import { Timestamp } from '../database/FnitCommunityDatabase';
 
 class DiscordAuthorModel implements DiscordAuthor {
     id: string;
@@ -7,7 +7,7 @@ class DiscordAuthorModel implements DiscordAuthor {
     avatar: string;
     discriminator: string;
     uid?: string;
-    createdAt?: FieldValue;
+    createdAt?: Timestamp;
 
     constructor(author: any) {
         if(DiscordAuthorModel.isDiscordAuthor(author)) {

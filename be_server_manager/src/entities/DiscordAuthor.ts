@@ -1,4 +1,4 @@
-import { FieldValue } from '../database/FnitCommunityDatabase';
+import { Timestamp } from '../database/FnitCommunityDatabase';
 
 interface DiscordAuthor {
     id: string;
@@ -6,7 +6,7 @@ interface DiscordAuthor {
     discriminator: string;
     avatar: string;
     uid?: string;
-    createdAt?: FieldValue;
+    createdAt?: Timestamp;
 }
 
 export default DiscordAuthor;

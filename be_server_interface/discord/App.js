@@ -27,10 +27,9 @@ client.on('message', async message => {
             author
         }).catch(async (err) => {
             await message.reply(err.response.data);
-            throw new Error('受付に失敗');
         });
 
-        if (response.status === 200) {
+        if (response && response.status === 200) {
             const message = `Congratulations! 登録が完了しました!\n他のチャンネルをよく読んで楽しいマインクラフト生活を送りましょう!\nホワイトリストに登録されたプレイヤーネーム: ${response.data.playerName}`;
             await message.reply(message);
         }

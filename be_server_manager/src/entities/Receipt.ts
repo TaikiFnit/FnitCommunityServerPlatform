@@ -1,10 +1,10 @@
-import { FieldValue } from '../database/FnitCommunityDatabase';
+import { Timestamp } from '../database/FnitCommunityDatabase';
 
 interface Receipt {
     uid: string;
     number: string;
     activated?: boolean;
-    createdAt: FieldValue;
+    createdAt: Timestamp;
 }
 
 export default Receipt;

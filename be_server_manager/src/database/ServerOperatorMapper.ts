@@ -1,5 +1,5 @@
 import ServerOperatorGateway from '../domain/ServerOperatorGateway';
-import { default as DB, getTimestamp } from './FnitCommunityDatabase';
+import {default as DB, getTimestamp, Timestamp} from './FnitCommunityDatabase';
 import Player from '../entities/Player';
 import DiscordAuthor from '../entities/DiscordAuthor';
 import ReceiptModel from '../model/ReceiptModel';

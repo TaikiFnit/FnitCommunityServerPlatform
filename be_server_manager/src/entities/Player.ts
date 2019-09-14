@@ -1,9 +1,9 @@
-import { FieldValue } from '../database/FnitCommunityDatabase';
+import { Timestamp } from '../database/FnitCommunityDatabase';
 
 interface Player {
     name: string;
     uid: string;
-    createdAt: FieldValue;
+    createdAt: Timestamp;
 }
 
 export default Player;

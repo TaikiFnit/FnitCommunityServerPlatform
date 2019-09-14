@@ -22,8 +22,8 @@ const db = firebase.firestore();
 
 export default db;
 export const getTimestamp = () => {
-    return firebase.firestore.FieldValue.serverTimestamp();
+    return firebase.firestore.Timestamp.now();
 };
 
-import FieldValue = firebase.firestore.FieldValue;
-export { FieldValue };
+import Timestamp = firebase.firestore.Timestamp;
+export { Timestamp };
