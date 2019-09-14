@@ -14,7 +14,6 @@
     import DiscordConnecter from '@/components/DiscordConnecter.vue';
 
     import * as firebase from 'firebase';
-    import FieldValue = firebase.firestore.FieldValue;
 
     @Component({
         components: {
@@ -53,7 +52,6 @@
                     uid: this.uid,
                     createdAt: firebase.firestore.FieldValue.serverTimestamp(),
                 });
-                const cc: FieldValue
 
                 const receiptNumber = await fetch('https://us-central1-fnit-commu.cloudfunctions.net/publishReceiptNumber')
                     .then((response) => response.text());
