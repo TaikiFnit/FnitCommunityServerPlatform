@@ -1,26 +1,30 @@
 import { Request, Response } from 'express';
-import ServerOperatorInterface from "../domain/ServerOperatorInterface";
-import ServerOperator from "../domain/ServerOperator";
-import ServerOperatorMapper from "../database/ServerOperatorMapper";
-import DiscordAuthor from "../entities/DiscordAuthor";
+import ServerOperatorInterface from '../domain/ServerOperatorInterface';
+import ServerOperator from '../domain/ServerOperator';
+import ServerOperatorMapper from '../database/ServerOperatorMapper';
+import DiscordAuthor from '../entities/DiscordAuthor';
+import DiscordAuthorModel from "../model/DiscordAuthorModel";
+import Player from "../entities/Player";
 
 export const discordCommand = async (request: Request, response: Response) => {
     const model: ServerOperatorInterface = new ServerOperator(new ServerOperatorMapper());
+
     const body = request.body;
+    const author: DiscordAuthor = new DiscordAuthorModel(body.author);
 
-    const directive:string = body.directive;
-    const author: DiscordAuthor = body.author;
-
-    if(!isAuthor(author)) {
-        throw new Error('Invalid author params');
-    }
-
-    let directive_array:Array<string> = directive.split(' ');
+    const directive: string = body.directive;
+    const directive_array: Array<string> = directive.split(' ');
     const [command, ...targets] = directive_array;
 
     switch (command) {
         case 'join':
-            return;
+            const receiptNumber = targets[0];
+            if (typeof receiptNumber === 'string') {
+                const player: Player = await model.joinRequestAccepter(receiptNumber, author);
+                return response.send({status: true, player_name: player.name});
+            }
+
+            return response.sendStatus(400);
         case 'ban':
             const targetPlayer: string = targets[0];
 
@@ -45,11 +49,3 @@ export const discordCommand = async (request: Request, response: Response) => {
     return response.send(body.directive);
 };
 
-function isAuthor(author: any): author is DiscordAuthor {
-    return (
-        typeof author.id === 'string' &&
-        typeof author.username === 'string' &&
-        typeof author.discriminator === 'string' &&
-        typeof author.avatar === 'string'
-    );
-}

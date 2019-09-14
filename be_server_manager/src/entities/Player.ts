@@ -1,8 +1,6 @@
 interface Player {
     name: string;
-    xuid: string;
-    ip: string;
-    discord_account?: string;
+    uid: string;
     created_at: number;
 }
 
