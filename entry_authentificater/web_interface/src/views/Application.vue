@@ -50,6 +50,7 @@
                 db.collection('players').doc(this.uid).set({
                     name: this.name,
                     uid: this.uid,
+                    createdAt: new Date(),
                 });
 
                 const receiptNumber = await fetch('https://us-central1-fnit-commu.cloudfunctions.net/publishReceiptNumber')
@@ -58,6 +59,7 @@
                 db.collection('receipts').doc(this.uid).set({
                     number: receiptNumber,
                     uid: this.uid,
+                    createdAt: new Date(),
                 });
 
                 return receiptNumber;

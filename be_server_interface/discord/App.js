@@ -25,14 +25,14 @@ client.on('message', async message => {
         const response = await axios.post('http://localhost:9999/discord_command', {
             directive: directivesString,
             author
+        }).catch(async (err) => {
+            await message.reply(err.response.data);
+            throw new Error('受付に失敗');
         });
 
-        console.log(response.data);
         if (response.status === 200) {
-            const message = `Congratulations! 登録が完了しました!\n他のチャンネルをよく読んで楽しいマインクラフト生活を送りましょう!\nホワイトリストに登録されたプレイヤーネーム: ${response.player_name}`;
+            const message = `Congratulations! 登録が完了しました!\n他のチャンネルをよく読んで楽しいマインクラフト生活を送りましょう!\nホワイトリストに登録されたプレイヤーネーム: ${response.data.playerName}`;
             await message.reply(message);
-        } else {
-            await message.reply('')
         }
     }
 });

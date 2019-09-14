@@ -17,7 +17,7 @@ export default class ServerOperatorMapper implements ServerOperatorGateway {
             return new ReceiptModel(receipt, new ReceiptModelMapper());
         }
 
-        throw new Error('Receipt Not Found');
+        throw new Error('入力された受付番号は有効ではありません');
     }
 
     async registerDiscordAccount(discordAccount: DiscordAuthor, playerUid: string): Promise<DiscordAuthor> {

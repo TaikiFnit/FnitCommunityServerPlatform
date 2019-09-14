@@ -5,6 +5,7 @@ import ServerOperatorMapper from '../database/ServerOperatorMapper';
 import DiscordAuthor from '../entities/DiscordAuthor';
 import DiscordAuthorModel from '../model/DiscordAuthorModel';
 import Player from '../entities/Player';
+import PlayerModel from '../model/PlayerModel';
 
 export const discordCommand = async (request: Request, response: Response) => {
     const model: ServerOperatorInterface = new ServerOperator(new ServerOperatorMapper());
@@ -20,11 +21,19 @@ export const discordCommand = async (request: Request, response: Response) => {
         case 'join':
             const receiptNumber = targets[0];
             if (typeof receiptNumber === 'string') {
-                const player: Player = await model.joinRequestAccepter(receiptNumber, author);
-                return response.send({status: true, playerName: player.name});
-            }
+                const player: Player | Error = await model.joinRequestAccepter(receiptNumber, author).catch((err: Error) => {
+                    return err;
+                });
 
-            return response.sendStatus(400);
+                if (PlayerModel.isPlayer(player)) {
+                    return response.send({status: true, playerName: player.name});
+                } else {
+                    response.status(400);
+                    return response.send(player.message);
+                }
+            }
+            response.status(400);
+            return response.send('受付番号を入力してください. 入力の例: /fnit join 1111');
         case 'ban':
             const targetPlayer: string = targets[0];
 
