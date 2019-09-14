@@ -1,6 +1,6 @@
 import ServerOperatorMapper from '../../src/database/ServerOperatorMapper';
 import Player from '../../src/entities/Player';
-import ReceiptModel from "../../src/model/ReceiptModel";
+import ReceiptModel from '../../src/model/ReceiptModel';
 
 function isPlayer(object: any): object is Player {
     return 'name' in object;

@@ -1,4 +1,4 @@
-import DiscordAuthor from "../entities/DiscordAuthor";
+import DiscordAuthor from '../entities/DiscordAuthor';
 
 class DiscordAuthorModel implements DiscordAuthor {
     id: string;

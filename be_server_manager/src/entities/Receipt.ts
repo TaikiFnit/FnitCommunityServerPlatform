@@ -2,7 +2,7 @@ interface Receipt {
     uid: string;
     number: string;
     activated?: boolean;
-    created_at: number;
+    createdAt: number;
 }
 
 export default Receipt;

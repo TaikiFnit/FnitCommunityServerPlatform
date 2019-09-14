@@ -1,7 +1,7 @@
 interface Player {
     name: string;
     uid: string;
-    created_at: number;
+    createdAt: number;
 }
 
 export default Player;

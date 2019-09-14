@@ -3,8 +3,8 @@ import ServerOperatorInterface from '../domain/ServerOperatorInterface';
 import ServerOperator from '../domain/ServerOperator';
 import ServerOperatorMapper from '../database/ServerOperatorMapper';
 import DiscordAuthor from '../entities/DiscordAuthor';
-import DiscordAuthorModel from "../model/DiscordAuthorModel";
-import Player from "../entities/Player";
+import DiscordAuthorModel from '../model/DiscordAuthorModel';
+import Player from '../entities/Player';
 
 export const discordCommand = async (request: Request, response: Response) => {
     const model: ServerOperatorInterface = new ServerOperator(new ServerOperatorMapper());
@@ -13,15 +13,15 @@ export const discordCommand = async (request: Request, response: Response) => {
     const author: DiscordAuthor = new DiscordAuthorModel(body.author);
 
     const directive: string = body.directive;
-    const directive_array: Array<string> = directive.split(' ');
-    const [command, ...targets] = directive_array;
+    const directiveArray: Array<string> = directive.split(' ');
+    const [command, ...targets] = directiveArray;
 
     switch (command) {
         case 'join':
             const receiptNumber = targets[0];
             if (typeof receiptNumber === 'string') {
                 const player: Player = await model.joinRequestAccepter(receiptNumber, author);
-                return response.send({status: true, player_name: player.name});
+                return response.send({status: true, playerName: player.name});
             }
 
             return response.sendStatus(400);

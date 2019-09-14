@@ -2,10 +2,10 @@ import ServerOperatorGateway from '../domain/ServerOperatorGateway';
 import DB from './FnitCommunityDatabase';
 import Player from '../entities/Player';
 import DiscordAuthor from '../entities/DiscordAuthor';
-import ReceiptModel from "../model/ReceiptModel";
-import ReceiptModelMapper from "./ReceiptModelMapper";
-import DiscordAuthorModel from "../model/DiscordAuthorModel";
-import PlayerModel from "../model/PlayerModel";
+import ReceiptModel from '../model/ReceiptModel';
+import ReceiptModelMapper from './ReceiptModelMapper';
+import DiscordAuthorModel from '../model/DiscordAuthorModel';
+import PlayerModel from '../model/PlayerModel';
 
 export default class ServerOperatorMapper implements ServerOperatorGateway {
     async inquiryReceipt(receiptNumber: string): Promise<ReceiptModel> {
@@ -57,11 +57,11 @@ export default class ServerOperatorMapper implements ServerOperatorGateway {
     async saveWhitelistTransaction(type: 'add' | 'remove', target: Player, executer: DiscordAuthor): Promise<boolean> {
         const newDocRef = await DB.collection('whitelist_transactions').add({
             type,
-            target_uid: target.uid,
-            target_name: target.name,
-            executer_uid: executer.uid,
-            executer_name: executer.username,
-            created_at: new Date()
+            targetUid: target.uid,
+            targetName: target.name,
+            executerUid: executer.uid,
+            executerName: executer.username,
+            createdAt: new Date()
         });
 
         const doc = await newDocRef.get();

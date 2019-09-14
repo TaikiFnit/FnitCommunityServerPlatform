@@ -1,5 +1,5 @@
 import DiscordAuthor from '../entities/DiscordAuthor';
-import Player from "../entities/Player";
+import Player from '../entities/Player';
 
 interface ServerOperatorInterface {
     joinRequestAccepter(receiptNumber: string, author: DiscordAuthor): Promise<Player>;

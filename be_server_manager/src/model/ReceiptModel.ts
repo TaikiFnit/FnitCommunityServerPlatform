@@ -1,11 +1,11 @@
 import Receipt from '../entities/Receipt';
-import ReceiptModelGateway from "./ReceiptModelGateway";
+import ReceiptModelGateway from './ReceiptModelGateway';
 
 class ReceiptModel implements Receipt {
     uid: string;
     number: string;
     activated?: boolean;
-    created_at: number;
+    createdAt: number;
 
     receiptModelGateway: ReceiptModelGateway;
 
@@ -14,7 +14,7 @@ class ReceiptModel implements Receipt {
             this.uid = receipt.uid;
             this.number = receipt.number;
             this.activated = receipt.activated;
-            this.created_at = receipt.created_at;
+            this.createdAt = receipt.createdAt;
         } else {
             throw new Error('invalid type Receipt');
         }
@@ -27,7 +27,7 @@ class ReceiptModel implements Receipt {
             uid: this.uid,
             number: this.number,
             activated: this.activated,
-            created_at: this.created_at
+            createdAt: this.createdAt
         };
     }
 
@@ -42,14 +42,14 @@ class ReceiptModel implements Receipt {
             return true;
         }
 
-        throw new Error("failed to activate");
+        throw new Error('failed to activate');
     }
 
     public static isReceipt(receipt: any): receipt is Receipt {
         return (
             'uid' in receipt &&
             'number' in receipt &&
-            'created_at' in receipt
+            'createdAt' in receipt
         );
     }
 }

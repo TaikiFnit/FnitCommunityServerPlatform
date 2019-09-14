@@ -1,15 +1,15 @@
-import Player from "../entities/Player";
+import Player from '../entities/Player';
 
 class PlayerModel implements Player {
     name: string;
     uid: string;
-    created_at: number;
+    createdAt: number;
 
     constructor(player: any) {
         if(PlayerModel.isPlayer(player)) {
             this.name = player.name;
             this.uid = player.uid;
-            this.created_at = player.created_at;
+            this.createdAt = player.createdAt;
             return;
         }
 
@@ -20,7 +20,7 @@ class PlayerModel implements Player {
         return (
             typeof player.name === 'string' &&
             typeof player.uid === 'string' &&
-            typeof player.created_at === 'number'
+            typeof player.createdAt === 'number'
         );
     }
 }

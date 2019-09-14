@@ -1,6 +1,6 @@
 import Player from '../entities/Player';
 import DiscordAuthor from '../entities/DiscordAuthor';
-import ReceiptModel from "../model/ReceiptModel";
+import ReceiptModel from '../model/ReceiptModel';
 
 interface ServerOperatorGateway {
     inquiryReceipt(receiptNumber: string): Promise<ReceiptModel>;

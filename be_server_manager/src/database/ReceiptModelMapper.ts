@@ -9,10 +9,10 @@ class ReceiptModelMapper implements ReceiptModelGateway {
         await docRef.set({activated: true}, {merge: true});
 
         const doc = await docRef.get();
-        const new_receipt = doc.data();
+        const newReceipt = doc.data();
 
-        if(ReceiptModel.isReceipt(new_receipt)) {
-            return new_receipt;
+        if(ReceiptModel.isReceipt(newReceipt)) {
+            return newReceipt;
         }
 
         throw new Error('failed to activate');
