@@ -1,9 +1,10 @@
 import Player from '../entities/Player';
+import { FieldValue } from '../database/FnitCommunityDatabase';
 
 class PlayerModel implements Player {
     name: string;
     uid: string;
-    createdAt: number;
+    createdAt: FieldValue;
 
     constructor(player: any) {
         if(PlayerModel.isPlayer(player)) {
@@ -20,7 +21,7 @@ class PlayerModel implements Player {
         return (
             typeof player.name === 'string' &&
             typeof player.uid === 'string' &&
-            typeof player.createdAt === 'number'
+            player.createdAt instanceof FieldValue
         );
     }
 }

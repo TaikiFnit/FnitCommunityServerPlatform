@@ -1,7 +1,9 @@
+import { FieldValue } from '../database/FnitCommunityDatabase';
+
 interface Player {
     name: string;
     uid: string;
-    createdAt: number;
+    createdAt: FieldValue;
 }
 
 export default Player;

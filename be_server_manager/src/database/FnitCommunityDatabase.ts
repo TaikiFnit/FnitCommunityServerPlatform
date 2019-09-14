@@ -21,3 +21,9 @@ firebase.initializeApp({
 const db = firebase.firestore();
 
 export default db;
+export const getTimestamp = () => {
+    return firebase.firestore.FieldValue.serverTimestamp();
+};
+
+import FieldValue = firebase.firestore.FieldValue;
+export { FieldValue };

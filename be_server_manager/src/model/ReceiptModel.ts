@@ -1,11 +1,12 @@
 import Receipt from '../entities/Receipt';
 import ReceiptModelGateway from './ReceiptModelGateway';
+import { FieldValue } from '../database/FnitCommunityDatabase';
 
 class ReceiptModel implements Receipt {
     uid: string;
     number: string;
     activated?: boolean;
-    createdAt: number;
+    createdAt: FieldValue;
 
     receiptModelGateway: ReceiptModelGateway;
 
@@ -47,9 +48,9 @@ class ReceiptModel implements Receipt {
 
     public static isReceipt(receipt: any): receipt is Receipt {
         return (
-            'uid' in receipt &&
-            'number' in receipt &&
-            'createdAt' in receipt
+            typeof receipt.uid === 'string' &&
+            typeof receipt.number === 'string' &&
+            receipt.createdAt instanceof FieldValue
         );
     }
 }

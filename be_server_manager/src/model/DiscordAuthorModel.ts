@@ -1,4 +1,5 @@
 import DiscordAuthor from '../entities/DiscordAuthor';
+import { FieldValue} from '../database/FnitCommunityDatabase';
 
 class DiscordAuthorModel implements DiscordAuthor {
     id: string;
@@ -6,6 +7,7 @@ class DiscordAuthorModel implements DiscordAuthor {
     avatar: string;
     discriminator: string;
     uid?: string;
+    createdAt?: FieldValue;
 
     constructor(author: any) {
         if(DiscordAuthorModel.isDiscordAuthor(author)) {
@@ -14,20 +16,11 @@ class DiscordAuthorModel implements DiscordAuthor {
             this.avatar = author.avatar;
             this.discriminator = author.discriminator;
             this.uid = author.uid;
+            this.createdAt = author.createdAt;
             return;
         }
 
         throw new Error('invalid params for Discord Author');
-    }
-
-    get author(): DiscordAuthor {
-        return ({
-            id: this.id,
-            username: this.username,
-            avatar: this.avatar,
-            discriminator: this.discriminator,
-            uid: this.uid
-        });
     }
 
     public static isDiscordAuthor(author: any): author is DiscordAuthor {
@@ -38,6 +31,5 @@ class DiscordAuthorModel implements DiscordAuthor {
             typeof author.avatar === 'string'
         );
     }
-
 }
 export default DiscordAuthorModel;

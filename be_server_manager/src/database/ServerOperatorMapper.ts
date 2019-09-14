@@ -1,5 +1,5 @@
 import ServerOperatorGateway from '../domain/ServerOperatorGateway';
-import DB from './FnitCommunityDatabase';
+import { default as DB, getTimestamp } from './FnitCommunityDatabase';
 import Player from '../entities/Player';
 import DiscordAuthor from '../entities/DiscordAuthor';
 import ReceiptModel from '../model/ReceiptModel';
@@ -23,7 +23,7 @@ export default class ServerOperatorMapper implements ServerOperatorGateway {
     async registerDiscordAccount(discordAccount: DiscordAuthor, playerUid: string): Promise<DiscordAuthor> {
         const newDocRef = DB.collection('discord_accounts').doc(playerUid);
 
-        await newDocRef.set({...discordAccount, uid: playerUid});
+        await newDocRef.set({...discordAccount, uid: playerUid, createdAt: getTimestamp()});
         const doc = await newDocRef.get();
 
         if (doc.exists) {
@@ -61,7 +61,7 @@ export default class ServerOperatorMapper implements ServerOperatorGateway {
             targetName: target.name,
             executerUid: executer.uid,
             executerName: executer.username,
-            createdAt: new Date()
+            createdAt: getTimestamp()
         });
 
         const doc = await newDocRef.get();
