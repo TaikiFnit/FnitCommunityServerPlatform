@@ -66,15 +66,15 @@
             }
 
             // すでにSMS認証済み: 受付番号を忘れた or 名前をミスってやり直してる or 他のアカウントとと同じ電話番号使ってる
-            const playerDoc = await db.collection('receipts').doc(this.uid).get();
-            if (playerDoc.exists) {
-                const data = playerDoc.data();
-                if (data !== undefined) {
+            const receiptDoc = await db.collection('receipts').doc(this.uid).get();
+            if (receiptDoc.exists) {
+                const receipt = receiptDoc.data();
+                if (receipt !== undefined) {
                     // すでに受付番号が使用済み => すでに登録済みの画面へ飛ばす
-                    // if (data.used === true) {
-                    //   throw new Error('すでに登録済みです');
-                    // }
-                    return data.number;
+                    if (receipt.activated === true) {
+                      throw new Error('入力された電場番号はすでに登録済みです');
+                    }
+                    return receipt.number;
                 }
             }
 

@@ -51,7 +51,7 @@ export default class ServerOperatorMapper implements ServerOperatorGateway {
             return new PlayerModel(doc.data());
         }
 
-        throw new Error('User Not Found');
+        throw new Error('ユーザーが見つかりませんでした');
     }
 
     async saveWhitelistTransaction(type: 'add' | 'remove', target: Player, executer: DiscordAuthor): Promise<boolean> {
@@ -59,7 +59,7 @@ export default class ServerOperatorMapper implements ServerOperatorGateway {
             type,
             targetUid: target.uid,
             targetName: target.name,
-            executerUid: executer.uid,
+            executerUid: executer.id,
             executerName: executer.username,
             createdAt: getTimestamp()
         });

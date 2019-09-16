@@ -1,18 +1,23 @@
 <template>
     <div class="hello">
-        <h2>認証が完了しました!</h2>
-        <p>
-            最後のステップはDiscord(チャットルーム)に参加して受付番号を入力することです!<br>
-            同じサーバーで遊ぶためには, 入居者間でのコミュニケーションが欠かせません.<br>
-            細かいルールなどは入居者主体のディスカッションを通じて決めて, トラブルのない快適なマインクラフト生活にしましょう!
-        </p>
+        <section v-if="causedError === false">
+            <h2>認証が完了しました!</h2>
+            <p>
+                最後のステップはDiscord(チャットルーム)に参加して受付番号を入力することです!<br>
+                同じサーバーで遊ぶためには, 入居者間でのコミュニケーションが欠かせません.<br>
+                細かいルールなどは入居者主体のディスカッションを通じて決めて, トラブルのない快適なマインクラフト生活にしましょう!
+            </p>
 
-        <h3>あなたの受付番号</h3>
-        <p v-if="receiptNumber !== null"><strong class="number">{{ receiptNumber }}</strong></p>
-        <p v-else><loader /></p>
-        <p>この番号をDiscordサーバーに参加して入力してください</p>
+            <h3>あなたの受付番号</h3>
+            <p v-if="receiptNumber !== null"><strong class="number">{{ receiptNumber }}</strong></p>
+            <p v-else><loader /></p>
+            <p>この番号をDiscordサーバーに参加して入力してください</p>
 
-        <a href="https://discord.gg/JAA4Qh4" target="_blank"><button type="button" class="discord-button">Discordに参加</button></a>
+            <a href="https://discord.gg/JAA4Qh4" target="_blank"><button type="button" class="discord-button">Discordに参加</button></a>
+        </section>
+        <section v-else>
+            <h2>{{ errorMessage }}</h2>
+        </section>
     </div>
 </template>
 
@@ -28,10 +33,15 @@
     export default class DiscordConnecter extends Vue {
         @Prop() private onMountDiscordConnecter!: () => Promise<string>;
         private receiptNumber: string | null = null;
+        private causedError: boolean = false;
+        private errorMessage: string = '';
 
         private mounted() {
             this.onMountDiscordConnecter().then((receiptNumber) => {
                 this.receiptNumber = receiptNumber;
+            }).catch((err: Error) => {
+                this.causedError = true;
+                this.errorMessage = err.message;
             });
         }
     }

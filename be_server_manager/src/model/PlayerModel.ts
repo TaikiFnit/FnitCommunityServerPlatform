@@ -18,8 +18,6 @@ class PlayerModel implements Player {
     }
 
     public static isPlayer(player: any): player is Player {
-        console.log('is player?');
-        console.log(player);
         return (
             typeof player.name === 'string' &&
             typeof player.uid === 'string' &&

@@ -33,16 +33,18 @@ export default class ServerOperator implements ServerOperatorInterface {
     }
 
     async whitelist(type: 'add' | 'remove', playerName: string, author: DiscordAuthor): Promise<boolean> {
-        // BE_ServerのSTDINに送信
-        const command = `whitelist ${type} "${playerName}"`;
-        const result = await axios.post('http://localhost:8888/command', {command});
+        const player: Player = await this.serverOperatorGateway.fetchPlayerByName(playerName);
+        const transactionSaved = await this.serverOperatorGateway.saveWhitelistTransaction(type, player, author);
 
-        if(result.status !== 200) {
-            throw new Error('something went wrong');
+        if(transactionSaved) {
+            // BE_ServerのSTDINに送信
+            const command = `whitelist ${type} "${playerName}"`;
+            const result = await axios.post('http://localhost:8888/command', {command});
+            if(result.status === 200) {
+                return true;
+            }
         }
 
-        // トランザクションを保存
-        const player: Player = await this.serverOperatorGateway.fetchPlayerByName(playerName);
-        return await this.serverOperatorGateway.saveWhitelistTransaction(type, player, author);
+        throw new Error('Something went wrong.');
     }
 }

@@ -30,8 +30,7 @@ client.on('message', async message => {
         });
 
         if (response && response.status === 200) {
-            const message = `Congratulations! 登録が完了しました!\n他のチャンネルをよく読んで楽しいマインクラフト生活を送りましょう!\nホワイトリストに登録されたプレイヤーネーム: ${response.data.playerName}`;
-            await message.reply(message);
+            await message.reply(response.data);
         }
     }
 });

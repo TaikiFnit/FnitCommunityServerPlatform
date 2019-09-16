@@ -26,7 +26,8 @@ export const discordCommand = async (request: Request, response: Response) => {
                 });
 
                 if (PlayerModel.isPlayer(player)) {
-                    return response.send({status: true, playerName: player.name});
+                    const replyMessage = `Congratulations! 登録が完了しました!\n他のチャンネルをよく読んで楽しいマインクラフト生活を送りましょう!\nホワイトリストに登録されたプレイヤーネーム: ${player.name}`;
+                    return response.send(replyMessage);
                 } else {
                     response.status(400);
                     return response.send(player.message);
@@ -34,14 +35,30 @@ export const discordCommand = async (request: Request, response: Response) => {
             }
             response.status(400);
             return response.send('受付番号を入力してください. 入力の例: /fnit join 1111');
-        case 'ban':
-            const targetPlayer: string = targets[0];
+        case 'whitelist':
+            const [type, ...playerNames]: Array<string> = targets;
+            const playerName: string = playerNames.join(' ');
 
-            if (typeof targetPlayer === 'string') {
-                // const result = await entities.addWhitelist(targetPlayer);
+            if (typeof playerName === 'string' && (type === 'add' || type === 'remove')) {
+                const result: boolean | Error = await model.whitelist(type, playerName, author).catch((err: Error) => {
+                    return err;
+                });
+
+                let replyMessage = '';
+
+                if (result instanceof Error) {
+                    replyMessage = `ホワイトリストの更新に失敗しました.\n${result.message}`;
+                } else if(result === true) {
+                    replyMessage = `${playerName} がホワイトリスト${type === 'add' ? 'に追加さ' : 'から削除さ'}れました`;
+                } else {
+                    replyMessage = 'ホワイトリストの更新に失敗しました';
+                }
+
+                return response.send(replyMessage);
             }
-            return;
-        case 'deban':
+
+            return response.send('対象のプレイヤー名を入力してください. 入力の例: /fnit whitelist add PlayerName');
+        case 'whiteilst-remove':
             return;
         case 'restore':
             return;
