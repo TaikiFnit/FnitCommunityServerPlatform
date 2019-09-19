@@ -7,5 +7,5 @@ let reader = require('readline').createInterface({
 
 reader.on('line', function(line) {
   console.log(`[Node]${line}`);
-  // axios.post(`localhost:8888/server_output?line=${line}`)
+  axios.post(`http://localhost:8888/server_log`, {line});
 });
